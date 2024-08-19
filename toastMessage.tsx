@@ -31,6 +31,21 @@ export default ({theme}: any) => {
         }}
       />
     ),
+    failed: (props: any) => (
+      <BaseToast
+        {...props}
+        style={{borderLeftColor: 'red', position: 'relative'}}
+        contentContainerStyle={{
+          paddingHorizontal: 5,
+          backgroundColor: theme === 'dark' ? '#4A4A4A' : 'white',
+        }}
+        text1Style={{
+          fontSize: 15,
+          color: theme === 'dark' ? 'white' : 'black',
+          fontWeight: '400',
+        }}
+      />
+    ),
     /* create a 'notification' type */
     notification: (props: any) => {
       // 計算 text2 的長度
