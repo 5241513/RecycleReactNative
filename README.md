@@ -49,13 +49,8 @@ This project is a React Native application utilizing various libraries to enhanc
    import Project from './Graduation-Project-App';
    ```
 
-## Additional Information
+## BackEnd Testing
 
-Ensure you have all necessary environment setups like Android SDK, Node.js, and other dependencies required for React Native development.
-
-For any issues, refer to the documentation of the respective libraries or seek help from their communities.
-
----
-
-This README provides a step-by-step guide for setting up the Graduation Project App, making sure that the necessary configurations and dependencies are properly installed and configured.
+### Camera Page
+you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the submit function in ./Camera/Preview/function.tsx to be true
 

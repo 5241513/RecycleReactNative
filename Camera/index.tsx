@@ -9,7 +9,7 @@ const HomeStack = createStackNavigator();
 const App = ({theme}:any) => {
   return (
     <HomeStack.Navigator screenOptions={{
-        headerShown: false,
+        
         gestureEnabled: true,
         gestureDirection: 'vertical',
         transitionSpec: {
@@ -19,7 +19,7 @@ const App = ({theme}:any) => {
         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         
     }} >
-      <HomeStack.Screen name='TakingPhote'component={Camera} />
+      <HomeStack.Screen name='TakingPhoto'component={Camera} options={{headerShown: false}}/>
       <HomeStack.Screen name='Preview' component={Preview}/>
     </HomeStack.Navigator>
   );
