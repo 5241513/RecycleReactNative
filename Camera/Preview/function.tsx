@@ -3,6 +3,13 @@ import Toast from 'react-native-toast-message';
 import { launchImageLibrary } from "react-native-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import data from '../../config.json'
+
+// 需要回傳的格式
+const TestData = {
+    title: "報紙回收指南",
+    paragraph: "走在路上拿到捷運站旁放的發的廣告或免費報紙，看完後的你可能隨手就丟進路旁的垃圾桶吧？但報紙主要的成分中紙類和大豆油墨其實是可以回收的，或許在家中或公司為了閱讀方便會裝訂釘書針，記得拆掉之後再回收喔！"
+}
+
 const URL = data['URl']
 const getUserData = async(key: string)=>{
     try {
@@ -24,28 +31,29 @@ const getUserData = async(key: string)=>{
     }
   }
 //Submit Recycle
-export async function submit(data: any, success = () => { }, fail = () => { }) {
-  
-    try {
-        const response = await fetch(URL+'sendRcycle', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-            body: data
-        }).then(response => response.json());
-        
-        // if (response.success == 1) {
-        //     showToast('Submission Succeeded.', '')
-        //     success();
-        // } else {
-        //     fail();
-        //     Alert.alert("Submission failed.");
-        // }
-    } catch (error) {
-      showFailedToast('Submission Failed, please try again.', '')
-      console.error('Error sending data:', error);
+export async function submit(backEndConnect:boolean,data: any, setTitle :any, setParagraph: any,setVisible:any, failed:any) {
+    if(backEndConnect){
+        try {
+            const response = await fetch(URL+'sendRcycle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: data
+            }).then(response => response.json());
+            setTitle(response.title)
+            setParagraph(response.paragraph)
+            setVisible(true)
+        } catch (error) {
+          showFailedToast('Submission Failed, please try again.', '')
+          failed()
+        }
     }
+   else{
+    setTitle(TestData.title)
+    setParagraph(TestData.paragraph)
+    setVisible(true)
+   }
 }
 
 type BodyType = {
