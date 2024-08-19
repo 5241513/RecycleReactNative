@@ -26,8 +26,11 @@ import {
   requestNotificationPermission
 } from './function';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Notify } from '../Function/Notify';
-import BackgroundLocation from '../Function/BackgroundLocation';
+// 先註解掉，看你之後要不要刪除
+// import { Notify } from '../Function/Notify';
+// import BackgroundLocation from '../Function/BackgroundLocation';
+
+
 // //2. 處理後端溝通 測試範例:貼function response data中
 // const loginReturndata = {
 //     state: "success",
@@ -43,7 +46,7 @@ import BackgroundLocation from '../Function/BackgroundLocation';
 // }
 // // state = {"success","wrongEmail","wrongUsername","wrongPassword"} -> 先找email 是否在資料庫或是否合法， 再對帳號是否在資料庫或是否合法， 在對密碼(是否合法)
 // // headimage: "" -> 頭像圖片地址 default是空或若使用預設圖片，則為預設圖片地址
-const test = false
+const test = true
 const Stack = createStackNavigator();
 const LoginAssociate = (props: any) => {
   const [showRegistration, setShowRegistration] = useState(false);
@@ -96,8 +99,9 @@ const LoginAssociate = (props: any) => {
               });
               saveData('UserData', UserData);
               showToast('登入成功.', '');
-              Notify();
-              BackgroundLocation();
+              // 先註解掉，看你之後要不要刪除
+              // Notify();
+              // BackgroundLocation();
               props.navigation.push('tab', { From: 'login' });
             },
             (data: any) => {
@@ -149,8 +153,9 @@ const LoginAssociate = (props: any) => {
       setPasswordL('');
       setHint('');
       showToast('登入成功.', '');
-      Notify();
-      BackgroundLocation();
+      // 先註解掉，看你之後要不要刪除
+      // Notify();
+      // BackgroundLocation();
       props.navigation.push('tab', { From: 'login' }); //做為測試(由於伺服器未完成，待完成後取消)
     } else {
       submitLogin(
@@ -171,8 +176,9 @@ const LoginAssociate = (props: any) => {
           setPasswordL('');
           setHint('');
           showToast('登入成功.', '');
-          Notify();
-          BackgroundLocation();
+          // 先註解掉，看你之後要不要刪除
+          // Notify();
+          // BackgroundLocation();
           props.navigation.push('tab', { From: 'login' });
         },
         (data: any) => {
@@ -218,8 +224,9 @@ const LoginAssociate = (props: any) => {
       setUsername('');
       setHint('');
       showToast('註冊成功.', '');
-      Notify();
-      BackgroundLocation();
+      // 先註解掉，看你之後要不要刪除
+      // Notify();
+      // BackgroundLocation();
       props.navigation.push('tab', { From: 'login' }); //做為測試(由於伺服器未完成，待完成後取消)
     } else {
       submitRegister(
@@ -237,8 +244,9 @@ const LoginAssociate = (props: any) => {
           setUsername('');
           setHint('');
           showToast('註冊成功.', '');
-          Notify();
-          BackgroundLocation();
+          // 先註解掉，看你之後要不要刪除
+          // Notify();
+          // BackgroundLocation();
           props.navigation.push('tab', { From: 'login' });
         },
         (data: any) => {

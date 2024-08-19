@@ -11,9 +11,6 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import messaging from '@react-native-firebase/messaging';
-import { Notify } from './Function/Notify';
-import BackgroundLocation from './Function/BackgroundLocation';
 
 
 import { useEffect } from 'react';
@@ -21,16 +18,9 @@ import { useEffect } from 'react';
 (Text as any).defaultProps = { maxFontSizeMultiplier: 1 };
 (TextInput as any).defaultProps = { maxFontSizeMultiplier: 1 };
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Background message handled:', remoteMessage);
-});
 const LoginStack = createStackNavigator();
 export default function () {
   const theme = useColorScheme();
-  // useEffect(() => {
-  // Notify();
-  // BackgroundLocation();
-  // }, []);
   
   return (
     <PaperProvider>
@@ -42,7 +32,7 @@ export default function () {
             options={{ headerShown: false }}
           />
           <LoginStack.Screen name="tab" options={{ header: () => null }}>
-            {props => <Tab theme={theme} />}
+            {(props:any) => <Tab theme={theme} />}
           </LoginStack.Screen>
         </LoginStack.Navigator>
         <ToastMessage theme={theme} />
