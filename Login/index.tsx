@@ -12,6 +12,7 @@ import {
   getFocusedRouteNameFromRoute,
   DefaultTheme,
   DarkTheme,
+  useIsFocused
 } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -65,60 +66,64 @@ const LoginAssociate = (props: any) => {
   const [fast, setFast] = useState(false);
   const [waiting, setWaiting] = useState(true); //等待模式 (等server 反應)
   requestNotificationPermission()
+  const isFocused = useIsFocused();
   useEffect(() => {
-    const logindata = getCredentialsFromKeychain();
-    async function FastLogin() {
-      const FLSelect = await checkFastLoginSelection();
-      if (FLSelect === 'false') {
-        setFast(false);
-        setWaiting(false);
-        return;
-      } else {
-        setFast(true);
-      }
-
-      const logdata = await logindata;
-      if (logdata) {
-        if (test) {
-          // change the state to false if we have server on
-          showToast('登入成功.', '');
-          props.navigation.push('tab', { From: 'login' });
-          //The problem that 徐 got about login fail and stuck in the page after login might because line 44 isn't be commented, or might be some other problems.
+    if (isFocused) {
+      const logindata = getCredentialsFromKeychain();
+      async function FastLogin() {
+        const FLSelect = await checkFastLoginSelection();
+        if (FLSelect === 'false') {
+          setFast(false);
+          setWaiting(false);
+          return;
         } else {
-          submitLogin(
-            logdata.email,
-            logdata.password,
-            (data: any) => {
-              // success = save the logindata that response on clint device also their password
-              const usernameLS = data.username;
-              const headImgLS = data.headImg;
-              const UserData = JSON.stringify({
-                email: logdata.email,
-                username: usernameLS,
-                headImg: headImgLS,
-              });
-              saveData('UserData', UserData);
-              showToast('登入成功.', '');
-              // 先註解掉，看你之後要不要刪除
-              // Notify();
-              // BackgroundLocation();
-              props.navigation.push('tab', { From: 'login' });
-            },
-            (data: any) => {
-              // fail = show the reason (setHint)
-              if (data.stat == 'wrongEmail') {
-                setHint('該電子郵件未註冊');
-              } else {
-                setHint('密碼錯誤');
-              }
-            },
-          );
+          setFast(true);
         }
+
+        const logdata = await logindata;
+        if (logdata) {
+          if (test) {
+            // change the state to false if we have server on
+            showToast('登入成功.', '');
+            props.navigation.push('tab', { From: 'login' });
+            //The problem that 徐 got about login fail and stuck in the page after login might because line 44 isn't be commented, or might be some other problems.
+          } else {
+            submitLogin(
+              logdata.email,
+              logdata.password,
+              (data: any) => {
+                // success = save the logindata that response on clint device also their password
+                const usernameLS = data.username;
+                const headImgLS = data.headImg;
+                const UserData = JSON.stringify({
+                  email: logdata.email,
+                  username: usernameLS,
+                  headImg: headImgLS,
+                });
+                saveData('UserData', UserData);
+                showToast('登入成功.', '');
+                // 先註解掉，看你之後要不要刪除
+                // Notify();
+                // BackgroundLocation();
+                props.navigation.push('tab', { From: 'login' });
+              },
+              (data: any) => {
+                // fail = show the reason (setHint)
+                if (data.stat == 'wrongEmail') {
+                  setHint('該電子郵件未註冊');
+                } else {
+                  setHint('密碼錯誤');
+                }
+              },
+            );
+          }
+
+        }
+        setWaiting(false);
       }
-      setWaiting(false);
+      FastLogin();
     }
-    FastLogin();
-  }, []);
+  }, [isFocused]);
   const handleFast = () => {
     if (fast) {
       saveData('FastLogin', 'false');
@@ -353,7 +358,7 @@ const LoginAssociate = (props: any) => {
         </View>
       ) : (
         <View style={styles.form}>
-          <Text style={styles.title}>登入</Text>
+          <Text style={styles.title}>回收紀錄系統{"\n\n"}登入</Text>
 
           <TextInput
             style={styles.input}
