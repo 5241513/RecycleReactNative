@@ -3,6 +3,10 @@ import  Octicons from "react-native-vector-icons/Octicons"
 import { createFormData,submit } from "./function";
 import { useEffect, useState } from "react";
 import Modal from "../Modal"
+
+// 要連接後端時改為true即可
+const backEndConnect = false
+
 export default (props: any) => {
   const photo = props.route.params.photo;
   const [visible,setVisible] = useState(false)
@@ -15,10 +19,9 @@ export default (props: any) => {
       uri: photo.path
     }}
   )
-  // 要連接後端時改為true即可
   const submitClicked = async() => {
     const formData = await createFormData(data);
-    await submit(true,formData,setTitle,setParagraph,setVisible,props.navigation.pop);
+    await submit(backEndConnect,formData,setTitle,setParagraph,setVisible,props.navigation.pop);
   }
   const onDismiss = ()=>{
     setVisible(!visible)

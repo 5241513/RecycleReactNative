@@ -43,10 +43,16 @@ This project is a React Native application utilizing various libraries to enhanc
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
    <!--取得影像-->
    ```
-4. **Import the project in `index.js`:**
-   In the `index.js` file, add the following import statement:
+4. **Replace `index.js` with the following code :**
    ```javascript
-   import Project from './Graduation-Project-App';
+   /**
+    * @format
+   */
+   import RecycleReactNative from './RecycleReactNative';
+   import {AppRegistry} from 'react-native';
+   import {name as appName} from './app.json';
+
+   AppRegistry.registerComponent(appName, () => RecycleReactNative);
    ```
 
 ## BackEnd Testing
