@@ -27,6 +27,7 @@ This project is a React Native application utilizing various libraries to enhanc
    npm install react-native-permissions
    npm i react-native-gesture-handler
    npm i react-native-keychain
+   npm i react-native-chart-kit
    ```
 
 2. **Add the following code snippet at the bottom of the file `android/app/build.gradle`:**
@@ -58,5 +59,8 @@ This project is a React Native application utilizing various libraries to enhanc
 ## BackEnd Testing
 
 ### Camera Page
-you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the submit function in ./Camera/Preview/function.tsx to be true
+you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
+
+### Weekly Statistic 
+you should service the "getWeeklyStatistic" function in ./Statistic/LineChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
 

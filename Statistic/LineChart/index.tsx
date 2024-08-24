@@ -1,54 +1,68 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { BarChart } from 'react-native-gifted-charts';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Dimensions} from 'react-native';
+import {LineChart} from 'react-native-chart-kit';
+import {formData, getWeeklyStatistic} from './function';
 
-const BarChartComponent = () => {
-    const [selectedBar, setSelectedBar] = useState(null);
+const backEndConnect = false;
 
-    const data = [
-        { value: 50, label: 'Jan' },
-        { value: 80, label: 'Feb' },
-        { value: 90, label: 'Mar' },
-        { value: 70, label: 'Apr' },
-        { value: 50, label: 'Jan' },
-        { value: 80, label: 'Feb' },
-        { value: 90, label: 'Mar' },
-        { value: 70, label: 'Apr' },
-        { value: 50, label: 'Jan' },
-        { value: 80, label: 'Feb' },
-        { value: 90, label: 'Mar' },
-        { value: 70, label: 'Apr' },
-        { value: 50, label: 'Jan' },
-        { value: 80, label: 'Feb' },
-        { value: 90, label: 'Mar' },
-        { value: 70, label: 'Apr' },
-        { value: 50, label: 'Jan' },
-        { value: 80, label: 'Feb' },
-        { value: 90, label: 'Mar' },
-        { value: 70, label: 'Apr' },
-    ];
+const LineChartComponent = () => {
+  const [activeLineIndex, setActiveLineIndex] = useState(-1);
+  const [loading, setLoading] = useState(true); // Start with loading as true
+  const [success,setSuccess] = useState(true)
+  const [data, setData] = useState(null);
 
-    const handleBarPress = (index: any) => {
-        if (selectedBar == index)
-            setSelectedBar(null);
-        else
-            setSelectedBar(index);
+  useEffect(() => {
+    // Set data once when the component mounts
+    const fetchData = async () => {
+      if (backEndConnect) {
+        const result = await getWeeklyStatistic(setData);
+        setSuccess(result)
+      } else {
+        setData(formData())
+      }
+      setLoading(false); // Set loading to false after data is fetched
     };
+    fetchData();
+  }, []);
 
+  if (loading) {
+    return (
+      <View>
+        <Text>載入中請稍候</Text>
+      </View>
+    );
+  }
+  if(!success){
     return (
         <View>
-            <BarChart
-                data={data.map((item, index) => ({
-                    ...item,
-                    frontColor: selectedBar === index ? 'orange' : 'skyblue',
-                    onPress: () => handleBarPress(index),
-                }))}
-                barWidth={30}
-                barBorderRadius={5}
-                showLine
-            />
+          <Text>失敗載入，請重新連線</Text>
         </View>
-    );
+      );
+  }
+
+  return (
+    <View>
+      <LineChart
+        bezier
+        withHorizontalLabels={true}
+        withVerticalLabels={true}
+        withShadow={false}
+        data={data}
+        width={Dimensions.get('window').width}
+        height={250}
+        chartConfig={{
+          backgroundColor: '#1cc910',
+          backgroundGradientFrom: '#eff3ff',
+          backgroundGradientTo: '#efefef',
+          decimalPlaces: 2,
+          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        }}
+        style={{
+          borderRadius: 16,
+        }}
+      />
+    </View>
+  );
 };
 
-export default BarChartComponent;
+export default LineChartComponent;
