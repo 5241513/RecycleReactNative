@@ -3,14 +3,14 @@ import Toast from 'react-native-toast-message';
 import { launchImageLibrary } from "react-native-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import data from '../../config.json'
-
+const URL = data['URl']
 // 需要回傳的格式
 const TestData = {
     title: "報紙回收指南",
     paragraph: "走在路上拿到捷運站旁放的發的廣告或免費報紙，看完後的你可能隨手就丟進路旁的垃圾桶吧？但報紙主要的成分中紙類和大豆油墨其實是可以回收的，或許在家中或公司為了閱讀方便會裝訂釘書針，記得拆掉之後再回收喔！"
 }
 
-const URL = data['URl']
+
 const getUserData = async(key: string)=>{
     try {
       // 获取存储的UserData

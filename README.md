@@ -27,6 +27,7 @@ This project is a React Native application utilizing various libraries to enhanc
    npm install react-native-permissions
    npm i react-native-gesture-handler
    npm i react-native-keychain
+   npm i react-native-chart-kit
    ```
 
 2. **Add the following code snippet at the bottom of the file `android/app/build.gradle`:**
@@ -43,14 +44,23 @@ This project is a React Native application utilizing various libraries to enhanc
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
    <!--取得影像-->
    ```
-4. **Import the project in `index.js`:**
-   In the `index.js` file, add the following import statement:
+4. **Replace `index.js` with the following code :**
    ```javascript
-   import Project from './Graduation-Project-App';
+   /**
+    * @format
+   */
+   import RecycleReactNative from './RecycleReactNative';
+   import {AppRegistry} from 'react-native';
+   import {name as appName} from './app.json';
+
+   AppRegistry.registerComponent(appName, () => RecycleReactNative);
    ```
 
 ## BackEnd Testing
 
 ### Camera Page
-you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the submit function in ./Camera/Preview/function.tsx to be true
+you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
+
+### Weekly Statistic 
+you should service the "getWeeklyStatistic" function in ./Statistic/LineChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
 
