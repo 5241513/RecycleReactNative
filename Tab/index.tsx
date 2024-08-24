@@ -6,7 +6,7 @@ import Home from "../Camera";
 import { Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Keychain from 'react-native-keychain';
-
+import Statistic from "../Statistic"
 const Tab = createBottomTabNavigator();
 
 async function handleLogout(navigation: any) {
@@ -39,9 +39,11 @@ export default ({ theme }: any) => {
                         tabBarIcon: ({ color, size }) => (
                             <Ionicons name="bar-chart" color={color} size={size} />
                         ),
-                    }} >
+                    }}
+
+                >
                     {() =>
-                        (<></>)
+                        (<Statistic />)
                     }
                 </Tab.Screen>
                 <Tab.Screen name="Camera"
