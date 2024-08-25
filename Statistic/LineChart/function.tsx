@@ -1,15 +1,26 @@
 import data from '../../config.json';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const URL = data['URl']
-// 傳入的資料格式
-const DATA = {
-  data: [
-    [10, 20, 30, 20, 14, 2, 23],
-    [5, 8, 6, 9, 8, 2, 10],
-    [5, 10, 20, 10, 5, 0, 30],
-  ],
-  legend: ['塑膠類', '一般垃圾', '金屬'],
-};
+
+export const chartData = [
+  {value: 0, label: 'Mon'},
+  {value: 0, label: 'Tue'},
+  {value: 0, label: 'Wed' },
+  {value: 0, label: 'Thu'},
+  {value: 0, label: 'Fri'},
+  {value: 0, label: 'Sat'},
+  {value: 0, label: 'Sun'}
+];
+//
+export const exampleChartData = [
+  {value: 0, label: 'Mon'},
+  {value: 20, label: 'Tue'},
+  {value: 30, label: 'Wed' },
+  {value: 4, label: 'Thu'},
+  {value: 15, label: 'Fri'},
+  {value: 4, label: 'Sat'},
+  {value: 7, label: 'Sun'}
+];
 const CATEGORYCOLOR = {
     塑膠類:  (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
     一般垃圾:  (opacity = 1) => `rgba(245, 40, 145, ${opacity})`,
@@ -34,26 +45,7 @@ const getUserData = async(key: string)=>{
       return null;
     }
   }
-export const formData = ( data = DATA) => {
-    const datasets = data.data.map((value, index) => {
-      const legendKey = data.legend[index] as keyof typeof CATEGORYCOLOR;
-      return {
-          data: value,
-          index: index,
-          color: CATEGORYCOLOR[legendKey],
-          strokeWidth: 3,
-      };
-    });
-  
-    const result = {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: datasets,
-      legend: data.legend,
-    };
-    return result;
-  };
-
-export const getWeeklyStatistic = async(setting:any)=>{
+export const getWeeklyStatistic = async(setting:any,category:any)=>{
     try {
         const email = await getUserData('email');
         const jsonData = await fetch(URL + 'showWeeklyStatistic',{
@@ -63,11 +55,11 @@ export const getWeeklyStatistic = async(setting:any)=>{
             },
             body: JSON.stringify(
               {
-                "email": email
+                "email": email,
+                "category": category
               })
           }).then(response => response.json());
-        const result = formData(jsonData);
-        setting(result);
+        setting(jsonData)
         return true
       } catch (error) {
         console.error('Error fetching data:', error);
