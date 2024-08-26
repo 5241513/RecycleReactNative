@@ -95,7 +95,7 @@ const PieChartComponent = ({ focusCategory, setFocusCategory }: any) => {
                     return (
 
                         <View>
-                            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>
+                            <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'black' }}>
                                 {focusSectionValue}
                             </Text>
                         </View>
