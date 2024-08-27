@@ -62,11 +62,11 @@ This project is a React Native application utilizing various libraries to enhanc
 you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
 
 ### Weekly Statistic 
-you should service the "getWeeklyStatistic" function in ./Statistic/LineChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./WeeklyChart/index.tsx  to be true
+you should service the "getWeeklyStatistic" function in ./Statistic/LineChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Statistic/WeeklyChart/index.tsx  to be true
 
 ### ALL Statistic 
-you should service the "getWeeklyStatistic" function in ./Statistic/PieChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./PieChart/index.tsx  to be true
+you should service the "getWeeklyStatistic" function in ./Statistic/PieChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Statistic/PieChart/index.tsx  to be true
 
 ### Daily Statistic 
-you should service the "getWeeklyStatistic" function in ./Statistic/BarChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./BarChart/index.tsx  to be true
+you should service the "getWeeklyStatistic" function in ./Statistic/BarChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Statistic/BarChart/index.tsx  to be true
 
