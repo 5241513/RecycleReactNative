@@ -14,8 +14,6 @@ export const exampleChartData = [
   { value: 10, label: '塑膠類' },
   { value: 20, label: '一般垃圾' },
   { value: 6, label: '金屬' },
-  { value: 6, label: '屬' },
-
 ];
 
 
