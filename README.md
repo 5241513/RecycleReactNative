@@ -60,6 +60,11 @@ This project is a React Native application utilizing various libraries to enhanc
 ### Setting Config.json
 set the url to your api server 
 
+### Login & Register Page
+you should service the "submitLogin" and the "submitRegister" functions in ./Login/function.tsx 
+The test value of login and register page is true in default, if you want to test backendconnect, you should turn it to false, otherwise it will be able to login by filled in username and password fields.
+the test value is in ./Login/index.tsx 
+
 ### Camera Page
 you should service the "submit" function in ./Camera/Preview/function.tsx, and if you want to test, remember to set the backEndConnect in ./Preview/index.tsx  to be true
 
