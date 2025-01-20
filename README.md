@@ -84,4 +84,4 @@ you should service the "getWeeklyStatistic" function in ./Statistic/PieChart/fun
 you should service the "getWeeklyStatistic" function in ./Statistic/BarChart/function.tsx, and if you want to test, remember to set the backEndConnect in ./Statistic/BarChart/index.tsx  to be true
 
 ### Other Information
-If you want to see more infotmation about the front end, you can visit this https://www.notion.so/4d44064bf57d476e8db5b883cc0e9264?pvs=4
+If you want to see more infotmation about the front end (data struct which backend should pass), you can visit this https://www.notion.so/4d44064bf57d476e8db5b883cc0e9264?pvs=4
