@@ -55,6 +55,12 @@ This project is a React Native application utilizing various libraries to enhanc
 
    AppRegistry.registerComponent(appName, () => RecycleReactNative);
    ```
+   ##
+   If the bar chart can't show normally (no bars in the chart), you should update your  'react-native-gifted-charts' packages
+   ```
+   npm install react-native-gifted-charts@latest
+   npx react-native start --reset-cache
+   ```
 
 ## BackEnd Testing
 ### Setting Config.json
