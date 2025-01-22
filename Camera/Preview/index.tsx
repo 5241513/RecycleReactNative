@@ -1,6 +1,6 @@
 import { Pressable, Image, StyleSheet } from "react-native"
-import  Octicons from "react-native-vector-icons/Octicons"
-import { createFormData,submit } from "./function";
+import Octicons from "react-native-vector-icons/Octicons"
+import { createFormData, submit } from "./function";
 import { useEffect, useState } from "react";
 import Modal from "../Modal"
 
@@ -9,26 +9,39 @@ const backEndConnect = false
 
 export default (props: any) => {
   const photo = props.route.params.photo;
-  const [visible,setVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [title, setTitle] = useState("")
   const [paragraph, setParagraph] = useState("")
-  const [data,setData] = useState(
-    {photo:{
-      fileName: photo.path.split('/').pop(),
-      type: "image/jpeg",
-      uri: photo.path
-    }}
+  const [data, setData] = useState(
+    {
+      photo: {
+        fileName: photo.path.split('/').pop(),
+        type: "image/jpeg",
+        uri: photo.path
+      }
+    }
   )
-  const submitClicked = async() => {
-    const formData = await createFormData(data);
-    await submit(backEndConnect,formData,setTitle,setParagraph,setVisible,props.navigation.pop);
+  const [submitLock, setSubmitLock] = useState(false)
+  const submitClicked = async () => {
+    if (!submitLock) {
+      setSubmitLock(true);
+      try {
+        const formData = await createFormData(data);
+        await submit(backEndConnect, formData, setTitle, setParagraph, setVisible, props.navigation.pop);
+      } catch (error) {
+        console.error("Submission failed:", error);
+      } finally {
+        //prevent locked on permanently
+        setSubmitLock(false);
+      }
+    }
   }
-  const onDismiss = ()=>{
+  const onDismiss = () => {
     setVisible(!visible)
     props.navigation.pop()
   }
   return <>
-    <Modal visible={visible} onDismiss={onDismiss} title={title} paragraph={paragraph}/>
+    <Modal visible={visible} onDismiss={onDismiss} title={title} paragraph={paragraph} />
     <Image source={{ uri: photo.path }} style={StyleSheet.absoluteFill} />
     <Pressable style={styles.submit} onPress={submitClicked}>
       <Octicons name="paper-airplane" style={styles.icon} size={30} color={'gray'} />

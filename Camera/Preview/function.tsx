@@ -11,30 +11,30 @@ const TestData = {
 }
 
 
-const getUserData = async(key: string)=>{
+const getUserData = async (key: string) => {
     try {
-      // 获取存储的UserData
-      const userDataString = await AsyncStorage.getItem('UserData');
-  
-      if (userDataString !== null) {
-        // 解析字符串为对象
-        const userData = JSON.parse(userDataString);
-        const result = userData[key];
-        return result;
-      } else {
-        console.log('UserData not found');
-        return null;
-      }
+        // 获取存储的UserData
+        const userDataString = await AsyncStorage.getItem('UserData');
+
+        if (userDataString !== null) {
+            // 解析字符串为对象
+            const userData = JSON.parse(userDataString);
+            const result = userData[key];
+            return result;
+        } else {
+            console.log('UserData not found');
+            return null;
+        }
     } catch (error) {
-      console.error('Failed to retrieve or parse UserData:', error);
-      return null;
+        console.error('Failed to retrieve or parse UserData:', error);
+        return null;
     }
-  }
+}
 //Submit Recycle
-export async function submit(backEndConnect:boolean,data: any, setTitle :any, setParagraph: any,setVisible:any, failed:any) {
-    if(backEndConnect){
+export async function submit(backEndConnect: boolean, data: any, setTitle: any, setParagraph: any, setVisible: any, failed: any) {
+    if (backEndConnect) {
         try {
-            const response = await fetch(URL+'sendRcycle', {
+            const response = await fetch(URL + 'sendRcycle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -45,25 +45,25 @@ export async function submit(backEndConnect:boolean,data: any, setTitle :any, se
             setParagraph(response.paragraph)
             setVisible(true)
         } catch (error) {
-          showFailedToast('Submission Failed, please try again.', '')
-          failed()
+            showFailedToast('Submission Failed, please try again.', '')
+            failed()
         }
     }
-   else{
-    setTitle(TestData.title)
-    setParagraph(TestData.paragraph)
-    setVisible(true)
-   }
+    else {
+        setTitle(TestData.title)
+        setParagraph(TestData.paragraph)
+        setVisible(true)
+    }
 }
 
 type BodyType = {
     [key: string]: any
 };
 //Turn submission data to Form Data
-export const createFormData = async(body: BodyType = {}) => {
+export const createFormData = async (body: BodyType = {}) => {
     const data = new FormData();
     const email = await getUserData('email')
-    data.append('email',email);
+    data.append('email', email);
     Object.keys(body).forEach((key) => {
         const value = body[key];
         if (key == 'photo') {
@@ -76,7 +76,7 @@ export const createFormData = async(body: BodyType = {}) => {
         }
         else
             data.append(key, value.toString());
-        
+
     });
     return data;
 };
@@ -90,15 +90,15 @@ export const showSuccessToast = (text1: string, text2: string, type = 'success')
     });
 }
 export const showFailedToast = (text1: string, text2: string, type = 'failed') => {
-  Toast.show({
-      type: type,
-      text1: text1,
-      text2: text2,
-      topOffset: 65
-  });
+    Toast.show({
+        type: type,
+        text1: text1,
+        text2: text2,
+        topOffset: 65
+    });
 }
 
-export const ShowImageLibrary = async (success = (image:any) => { }, fail = () => { }) => {
+export const ShowImageLibrary = async (success = (image: any) => { }, fail = () => { }) => {
     await launchImageLibrary({ mediaType: 'photo' }, (response) => {
         if (response.didCancel) {
             console.log('User cancelled image picker');
@@ -110,11 +110,11 @@ export const ShowImageLibrary = async (success = (image:any) => { }, fail = () =
             let image = response.assets?.[0];
             if (image?.uri == undefined) {
                 fail();
-                
+
             }
             else {
                 success(image);
-                
+
             }
         }
     });
