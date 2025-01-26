@@ -3,7 +3,7 @@ import Octicons from "react-native-vector-icons/Octicons"
 import { createFormData, submit } from "./function";
 import { useEffect, useState } from "react";
 import Modal from "../Modal"
-
+import React from "react";
 // 要連接後端時改為true即可
 const backEndConnect = false
 
