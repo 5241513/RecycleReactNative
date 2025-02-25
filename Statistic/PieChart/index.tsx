@@ -10,17 +10,19 @@ const PieChartComponent = ({ focusCategory, setFocusCategory }: any) => {
     const [pieChartData, setPieChartData] = useState(chartData);
     const [focusSectionValue, setFocusSectionValue] = useState("");
 
-
     useEffect(() => {
         if (BackEndConnect) {
             getAllStatistic(setPieChartData);
         } else {
             setPieChartData(exampleChartData);
         }
+    }, []);//把fetch 部分分離,避免無線循環
+
+    useEffect(() => {
         const totalValue = pieChartData.reduce((sum, item) => sum + item.value, 0);
         const targetValue = pieChartData.find(item => item.label === focusCategory)?.value || 0;
-        const proportion = (targetValue / totalValue) * 100;
-        setFocusSectionValue((proportion).toFixed(2) + '%');
+        const proportion = totalValue === 0 ? 0 : (targetValue / totalValue) * 100;
+        setFocusSectionValue(proportion.toFixed(2) + '%');
     }, [focusCategory, pieChartData]);
 
     const handlePress = (item: any) => {
